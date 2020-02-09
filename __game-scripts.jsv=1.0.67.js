@@ -2150,9 +2150,6 @@ Movement.attributes.add("compassEntity", {
 Movement.attributes.add("lookEntity", {
     type: "entity"
 }),
-Movement.attributes.add("crosshairElement", {
-    type: "entity"
-}),
 Movement.attributes.add("crosshairSize", {
     type: "number"
 }),
@@ -2501,7 +2498,7 @@ Movement.prototype.showVictory = function() {
     this.resetHeadPosition(),
     this.cameraEntity.enabled = !1,
     this.armsEntity.enabled = !1,
-    this.crosshairElement.enabled = !1,
+
     this.characterEntity.enabled = !0,
     this.cinematicCamera.enabled = !0,
     this.characterEntity.animation.play("Enemy-Victory"),
@@ -3342,8 +3339,6 @@ Movement.prototype.setCrosshair = function(t) {
     e += this.currentRecoilForce,
     e += this.height,
     this.currentCrossSize = pc.math.lerp(this.currentCrossSize, this.crosshairSize + 20 * t + e, .7),
-    this.crosshairElement.element.width = this.currentCrossSize,
-    this.crosshairElement.element.height = this.currentCrossSize,
     this.currentHitmarkerSize = pc.math.lerp(this.currentHitmarkerSize, .35, .25),
     this.currentHitmarkerOpacity = pc.math.lerp(this.currentHitmarkerOpacity, 0, .2),
     this.hitmarkerElement.enabled = !0,
@@ -3351,7 +3346,7 @@ Movement.prototype.setCrosshair = function(t) {
     this.currentHitmarkerOpacity < .2 ? this.hitmarkerElement.element.opacity = 0 : this.hitmarkerElement.element.opacity = 1,
     this.lookEntity.enabled = this.isFocusing,
     this.ADSBlur.enabled = this.isFocusing,
-    this.isFocusing && !this.currentWeaponDetails.focusCrosshair ? this.crosshairElement.enabled = !1 : this.onTablet ? this.crosshairElement.enabled = !1 : this.crosshairElement.enabled = !0,
+  
     this.currentWeaponDetails.bigScope ? this.isFocusing ? this.scopeFocusTime = pc.math.lerp(this.scopeFocusTime, 1, this.scopeFocusSpeed) : this.scopeFocusTime = pc.math.lerp(this.scopeFocusTime, 0, this.scopeFocusSpeed) : this.scopeFocusTime = 0,
     this.scopeFocusTime > .95 ? (this.scopeElement.enabled = !0,
     this.armsEntity.enabled = !1) : (this.scopeElement.enabled = !1,
@@ -4362,10 +4357,7 @@ Interface.attributes.add("fullSizeMapElement", {
 }),
 Interface.attributes.add("victoryElement", {
     type: "entity"
-}),
-Interface.attributes.add("crosshairElement", {
-    type: "entity"
-}),
+
 Interface.attributes.add("scopeElement", {
     type: "entity"
 }),
@@ -4755,10 +4747,10 @@ Interface.prototype.setCaseHealthPosition = function() {
 }
 ,
 Interface.prototype.switchMode = function(t) {
-    "Car" == t ? (this.crosshairElement.enabled = !1,
+
     this.scopeElement.enabled = !1,
     this.shortcutInventoryGroup.enabled = !1,
-    this.ammoGroup.enabled = !1) : (this.crosshairElement.enabled = !0,
+
     this.scopeElement.enabled = !0,
     this.shortcutInventoryGroup.enabled = !0,
     this.ammoGroup.enabled = !0)
